@@ -1,3 +1,5 @@
 *.asv
-./results
-./data
+*.lnk
+*.ini
+/results/
+/data/
