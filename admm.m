@@ -10,19 +10,19 @@ if eps == 0
     output.iter = iter;
     output.gap = zeros(iter + 1, 1);
     output.time = zeros(iter + 1, 1);
-    output.gap(1) = abs((c * x - b * y) / (b * y));
+    output.gap(1) = abs((c * x - b' * y) / (b' * y));
     for i=1:1:iter
-        [x, y, lambda] = admm_onestep(invAAT, c', A, b', x, lambda, t);
-        output.gap(i + 1) = abs((c * x - b * y) / (b * y));
+        [x, y, lambda] = admm_onestep(invAAT, c', A, b, x, lambda, t);
+        output.gap(i + 1) = abs((c * x - b' * y) / (b' * y));
         output.time(i + 1) = cputime + init_time;
     end
 else
     gap = zeros(iter + 1, 1);
     time = zeros(iter + 1, 1);
-    output.gap(1) = abs((c * x - b * y) / (b * y));
+    output.gap(1) = abs((c * x - b' * y) / (b' * y));
     for i=1:1:iter
-        [x, y, lambda] = admm_onestep(invAAT, c', A, b', x, lambda, t);
-        gap(i + 1) = abs((c * x - b * y) / (b * y));
+        [x, y, lambda] = admm_onestep(invAAT, c', A, b, x, lambda, t);
+        gap(i + 1) = abs((c * x - b' * y) / (b' * y));
         time(i + 1) = cputime + init_time;
         if (gap(i + 1) < eps)
             break;
@@ -34,5 +34,5 @@ else
 end
 output.x = x;
 output.val = c * x;
-output.alg = 'ADMM';
+output.alg = "ADMM";
 end
