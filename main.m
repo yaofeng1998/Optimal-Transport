@@ -73,7 +73,7 @@ iter = 2000;
 eps = 0;
 [c, b] = caffarelli_data_set(n);
 A = get_constraint_matrix(m, n);
-x = ones(m * n, 1) / m;
+x = zeros(m * n, 1);
 
 output1 = linprog_mosek(c, m, n, A, b, 'simplex');
 output2 = linprog_mosek(c, m, n, A, b, 'interior point');
