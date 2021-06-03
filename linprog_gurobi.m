@@ -11,7 +11,7 @@ params.OutputFlag = 0;
 if strcmpi(optimizer, 'simplex')
     params.Method = 1;
 else
-    params.Method = 3;
+    params.Method = 2;
 end
 %params.DisplayInterval = 1;
 %params.LogToConsole = 1;

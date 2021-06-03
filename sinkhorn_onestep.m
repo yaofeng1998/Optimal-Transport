@@ -1,20 +1,11 @@
 function [u, v] = sinkhorn_onestep(~, v, k, mu, nv, threshold)
-% row_factor = mu ./ (sum(x, 2)');
-% row_factor(isinf(row_factor)) = threshold;
-% row_factor(row_factor > threshold) = threshold;
-% row_factor(isnan(row_factor)) = 0;
-% x = x * diag(row_factor);
-% col_factor = nv ./ sum(x, 1);
-% col_factor(isinf(col_factor)) = threshold;
-% col_factor(col_factor > threshold) = threshold;
-% col_factor(isnan(col_factor)) = 0;
-% x = diag(col_factor) * x;
 u = mu ./ (k * v')';
 u(isinf(u)) = threshold;
+u(isnan(u)) = 1 / threshold;
 u(u > threshold) = threshold;
-u(isnan(u)) = 0;
+u(u < 1 / threshold) = 1 / threshold;
 v = nv ./ (k' * u')';
 v(isinf(v)) = threshold;
-v(v > threshold) = threshold;
-v(isnan(v)) = 0;
+v(isnan(v)) = 1 / threshold;
+v(v < 1 / threshold) = 1 / threshold;
 end

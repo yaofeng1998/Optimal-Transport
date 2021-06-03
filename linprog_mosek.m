@@ -16,17 +16,22 @@ prob.blx = zeros(m * n,1);
 prob.bux = inf * ones(m * n,1);
 param.MSK_IPAR_LOG = 0;
 if strcmpi(optimizer, 'simplex')
-    prob.MSK_IPAR_OPTIMIZER = "MSK_OPTIMIZER_FREE_SIMPLEX";
+    param.MSK_IPAR_OPTIMIZER = 'MSK_OPTIMIZER_PRIMAL_SIMPLEX';
+    [~, res] = mosekopt('minimize info', prob, param); 
+    output.x = res.sol.bas.xx;
+    output.val = res.sol.bas.pobjval;
+    output.iter = res.info.MSK_IINF_SIM_PRIMAL_ITER;
+    output.time = res.info.MSK_DINF_OPTIMIZER_TIME;
+    output.gap = abs((res.sol.bas.pobjval - res.sol.bas.dobjval) / res.sol.bas.dobjval);
 else
-    prob.MSK_IPAR_OPTIMIZER = "MSK_OPTIMIZER_INTPNT";
+    param.MSK_IPAR_OPTIMIZER = 'MSK_OPTIMIZER_INTPNT';
+    [~, res] = mosekopt('minimize info', prob, param); 
+    output.x = res.sol.itr.xx;
+    output.val = res.sol.itr.pobjval;
+    output.iter = res.info.MSK_IINF_INTPNT_ITER;
+    output.time = res.info.MSK_DINF_OPTIMIZER_TIME;
+    output.gap = abs((res.sol.itr.pobjval - res.sol.itr.dobjval) / res.sol.itr.dobjval);
 end
-% param.MSK_DPAR_INTPNT_CO_TOL_REL_GAP = eps;
 % Perform the optimization.
-[~, res] = mosekopt('minimize info',prob, param); 
-output.x = res.sol.itr.xx;
-output.val = res.sol.itr.pobjval;
-output.iter = res.info.MSK_IINF_INTPNT_ITER;
-output.time = res.info.MSK_DINF_OPTIMIZER_TIME;
-output.gap = abs((res.sol.itr.pobjval - res.sol.itr.dobjval) / res.sol.itr.dobjval);
 output.alg = string(['Mosek-' optimizer]);
 end
