@@ -55,7 +55,7 @@ for i = 1:1:output_size(1)
     legend(plots, legends, 'Location','Best');
 end
 set(gcf,'unit','normalized','position',[0.2,0.2,0.5 * output_size(1),0.5]);
-set(gcf, 'PaperSize', [21 * output_size(1), 12]);
+set(gcf, 'PaperSize', [12 * output_size(1), 12]);
 print('-dpdf', '-fillpage', save_path)
 hold off;
 end
