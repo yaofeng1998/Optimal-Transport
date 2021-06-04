@@ -2,10 +2,10 @@ function [output_size] = draw(outputs, key, titles, save_path)
 close;
 output_size = size(outputs);
 c = colormap(parula(output_size(1) * output_size(2)));
-lines = ['*'];
-hold on;
+lines = '*';
 for i=1:1:output_size(1)
     subplot(1, output_size(1), i);
+    hold on;
     title(titles(i));
     plots = [];
     legends = [];
@@ -53,10 +53,9 @@ for i=1:1:output_size(1)
     set(gca, 'XMinorGrid','off');
     set(gca, 'YMinorGrid','off');
     legend(plots, legends, 'Location','Best');
-    % set(gca,'ylim',[1e-15, 1]);
 end
-set(gcf,'position',[100, 100, 960 * output_size(1), 600]);
-set(gcf, 'PaperSize', [28 * output_size(1), 18.75]);
-saveas(gcf, save_path, 'pdf');
+set(gcf,'unit','normalized','position',[0.2,0.2,0.5 * output_size(1),0.5]);
+set(gcf, 'PaperSize', [21 * output_size(1), 12]);
+print('-dpdf', '-fillpage', save_path)
 hold off;
 end

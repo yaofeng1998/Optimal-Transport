@@ -1,4 +1,4 @@
-function [output] = admm(c, m, n, A, b, x, t, iter, eps)
+function [output] = admm_entropy(c, m, n, A, b, x, t, iter, eps)
 init_time = tic;
 A = sparse(A(1:1:m + n - 1, :));
 b = b(1:1:m + n - 1);
@@ -35,9 +35,6 @@ else
     output.gap = gap(1:1:i, 1);
 end
 output.x = x;
-output.primal_val = c * x;
-output.dual_val = b' * y;
-output.total_time = output.time(output.iter);
-output.final_gap = output.gap(output.iter);
+output.val = c * x;
 output.alg = "ADMM";
 end

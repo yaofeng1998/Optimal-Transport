@@ -45,6 +45,9 @@ else
     output.gap = gap(1:1:i, 1);
 end
 output.x = reshape((diag(u) * k * diag(v))', [m * n, 1]);
-output.val = reshape(c', [1, m * n]) * output.x;
+output.primal_val = sum(sum(c .* x + epsilon * x .* (log(x) - 1)));
+output.dual_val = f * mu' + g * nv' - epsilon * sum(sum(x));
+output.total_time = output.time(output.iter);
+output.final_gap = output.gap(output.iter);
 output.alg = string(['Sinkhorn-\epsilon=' num2str(epsilon, '%.2e')]);
 end

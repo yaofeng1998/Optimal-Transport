@@ -19,7 +19,8 @@ if strcmpi(optimizer, 'simplex')
     param.MSK_IPAR_OPTIMIZER = 'MSK_OPTIMIZER_PRIMAL_SIMPLEX';
     [~, res] = mosekopt('minimize info', prob, param); 
     output.x = res.sol.bas.xx;
-    output.val = res.sol.bas.pobjval;
+    output.primal_val = res.sol.bas.pobjval;
+    output.dual_val = res.sol.bas.dobjval;
     output.iter = res.info.MSK_IINF_SIM_PRIMAL_ITER;
     output.time = res.info.MSK_DINF_OPTIMIZER_TIME;
     output.gap = abs((res.sol.bas.pobjval - res.sol.bas.dobjval) / res.sol.bas.dobjval);
@@ -27,11 +28,13 @@ else
     param.MSK_IPAR_OPTIMIZER = 'MSK_OPTIMIZER_INTPNT';
     [~, res] = mosekopt('minimize info', prob, param); 
     output.x = res.sol.itr.xx;
-    output.val = res.sol.itr.pobjval;
+    output.primal_val = res.sol.itr.pobjval;
+    output.dual_val = res.sol.itr.dobjval;
     output.iter = res.info.MSK_IINF_INTPNT_ITER;
     output.time = res.info.MSK_DINF_OPTIMIZER_TIME;
     output.gap = abs((res.sol.itr.pobjval - res.sol.itr.dobjval) / res.sol.itr.dobjval);
 end
-% Perform the optimization.
+output.total_time = output.time;
+output.final_gap = output.gap;
 output.alg = string(['Mosek-' optimizer]);
 end
