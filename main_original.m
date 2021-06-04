@@ -79,7 +79,7 @@ if (m == 500) && (n == 500)
     draw(outputs_Ricker, 'iteration', "Ricker", [save_dir, 'Ricker_iter', postfix]);
     pause(1);
     close;
-    outputs = [outputs_random; outputs_DoTmark; outputs_Caffarelli, outputs_Ricker];
+    outputs = [outputs_random; outputs_DoTmark; outputs_Caffarelli; outputs_Ricker];
 else
     outputs = [outputs_random; outputs_DoTmark; outputs_Caffarelli];
 end
