@@ -83,10 +83,10 @@ if (m == 500) && (n == 500)
 else
     outputs = [outputs_random; outputs_DoTmark; outputs_Caffarelli];
 end
-draw(outputs, 'time', titles, [save_dir, postfix]);
+draw(outputs, 'time', titles, [save_dir, postfix, '_time']);
 pause(1);
 close;
-draw(outputs, 'iteration', titles, [save_dir, postfix]);
+draw(outputs, 'iteration', titles, [save_dir, postfix, '_iter']);
 pause(1);
 close;
 end
