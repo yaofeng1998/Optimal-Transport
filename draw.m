@@ -3,13 +3,13 @@ close;
 output_size = size(outputs);
 c = colormap(parula(output_size(1) * output_size(2)));
 lines = '*';
-for i=1:1:output_size(1)
+for i = 1:1:output_size(1)
     subplot(1, output_size(1), i);
     hold on;
     title(titles(i));
     plots = [];
     legends = [];
-    for j=1:1:output_size(2)
+    for j = 1:1:output_size(2)
         output = outputs(i, j);
         time = output.time;
         gap = output.gap;

@@ -1,5 +1,5 @@
 function [x, y] = newton_onestep(c, A, b, x, y, lambda, threshold)
-jacobi = -lambda * A * diag(x) * A';
+jacobi = -lambda * A * diag(sparse(x)) * A';
 residual = b - A * x;
 direction = (residual \ jacobi)';
 t = 1;

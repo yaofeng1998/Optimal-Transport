@@ -10,7 +10,7 @@ if eps == 0
     output.iter = iter;
     output.gap = zeros(iter, 1);
     output.time = zeros(iter, 1);
-    for i=1:1:iter
+    for i = 1:1:iter
         [x, y, lambda] = admm_onestep(invAAT, c', A, b, x, lambda, t);
         primal_value = c * x;
         dual_value = b' * y;
@@ -20,7 +20,7 @@ if eps == 0
 else
     gap = zeros(iter, 1);
     time = zeros(iter, 1);
-    for i=1:1:iter
+    for i = 1:1:iter
         [x, y, lambda] = admm_onestep(invAAT, c', A, b, x, lambda, t);
         primal_value = c * x;
         dual_value = b' * y;

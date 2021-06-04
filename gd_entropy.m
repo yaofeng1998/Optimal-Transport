@@ -14,7 +14,7 @@ if eps == 0
     output.iter = iter;
     output.gap = zeros(iter, 1);
     output.time = zeros(iter, 1);
-    for i=1:1:iter
+    for i = 1:1:iter
         y = y + t * (b - A * x);
         x = exp((A' * y - c') * lambda);
         x(isinf(x)) = threshold;
@@ -28,7 +28,7 @@ if eps == 0
 else
     gap = zeros(iter, 1);
     time = zeros(iter, 1);
-    for i=1:1:iter
+    for i = 1:1:iter
         y = y + t * (b - A * x);
         x = exp((A' * y - c') * lambda);
         x(isinf(x)) = threshold;

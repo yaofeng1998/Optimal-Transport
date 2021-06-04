@@ -14,7 +14,7 @@ if eps == 0
     output.iter = iter;
     output.gap = zeros(iter, 1);
     output.time = zeros(iter, 1);
-    for i=1:1:iter
+    for i = 1:1:iter
         [u, v] = sinkhorn_onestep(u, v, k, mu, nv, threshold);
         f = log(u) * epsilon;
         g = log(v) * epsilon;
@@ -27,7 +27,7 @@ if eps == 0
 else
     gap = zeros(iter, 1);
     time = zeros(iter, 1);
-    for i=1:1:iter
+    for i = 1:1:iter
         [u, v] = sinkhorn_onestep(u, v, k, mu, nv, threshold);
         f = log(u) * epsilon;
         g = log(v) * epsilon;

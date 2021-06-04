@@ -14,7 +14,7 @@ if eps == 0
     output.iter = iter;
     output.gap = zeros(iter, 1);
     output.time = zeros(iter, 1);
-    for i=1:1:iter
+    for i = 1:1:iter
         [x, y] = newton_onestep(c, A, b, x, y, lambda, threshold);
         primal_value = c * x + sum(epsilon * x .* (log(x) - 1));
         dual_value = b' * y - epsilon * sum(x);
@@ -24,7 +24,7 @@ if eps == 0
 else
     gap = zeros(iter, 1);
     time = zeros(iter, 1);
-    for i=1:1:iter
+    for i = 1:1:iter
         [x, y] = newton_onestep(c, A, b, x, y, lambda, threshold);
         primal_value = c * x + sum(epsilon * x .* (log(x) - 1));
         dual_value = b' * y - epsilon * sum(x);
