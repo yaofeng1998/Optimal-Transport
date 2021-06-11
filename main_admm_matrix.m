@@ -1,0 +1,21 @@
+%%
+clear;
+clc;
+m = 500;
+n = m;
+iter = 1082;
+eps = 0;
+t = 1;
+seed = 0;
+postfix = [num2str(m) '_' num2str(n) '_' num2str(iter) '_' num2str(seed)];
+save_dir = 'results/admm/';
+load('./data/shift_of_Ricker.mat');
+c = reshape(C', [1, m * n]) / max(max(C));
+b = ([fx, fy])';
+% A = get_constraint_matrix(m, n);
+A = [];
+x = zeros(m * n, 1);
+output1 = admm_matrix(c, m, n, A, b, x, t, iter, eps, 1.2e-5, 0.85, 1.3);
+output2 = admm_gpu_matrix(c, m, n, A, b, x, t, iter, eps, 1.2e-5, 0.85, 1.3);
+draw([output1, output2], 'time', "Ricker", [save_dir, 'Ricker_time', postfix]);
+draw([output1, output2], 'iteration', "Ricker", [save_dir, 'Ricker_iter', postfix]);
