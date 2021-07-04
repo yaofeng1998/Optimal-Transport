@@ -25,7 +25,7 @@ if eps == 0
         end
         ATy_c_minus = c;
         for j = 1:1:k
-            shape_yj = ones(k, 1);
+            shape_yj = ones(1, k);
             shape_yj(j) = problem_size(j);
             ATy_c_minus = ATy_c_minus - reshape(y(index_positions(j) + 1:1:index_positions(j + 1)), shape_yj);
         end
@@ -35,7 +35,7 @@ if eps == 0
         dual_value = b' * y;
         output.gap(i) = abs((primal_value - dual_value) / dual_value);
         output.time(i) = toc(init_time);
-        % fprintf("%d %d\n", gather(primal_value), gather(output.gap(i)));
+        fprintf("iter %d: primal vlaue: %e, relative gap: %e\n", i, gather(primal_value), gather(output.gap(i)));
         t = min(tmax, t * multiplier);
     end
 else
@@ -52,7 +52,7 @@ else
         end
         ATy_c_minus = c;
         for j = 1:1:k
-            shape_yj = ones(k, 1);
+            shape_yj = ones(1, k);
             shape_yj(j) = problem_size(j);
             ATy_c_minus = ATy_c_minus - reshape(y(index_positions(j) + 1:1:index_positions(j + 1)), shape_yj);
         end
@@ -62,6 +62,7 @@ else
         dual_value = b' * y;
         gap(i) = abs((primal_value - dual_value) / dual_value);
         time(i) = toc(init_time);
+        fprintf("iter %d: primal vlaue: %e, relative gap: %e\n", i, gather(primal_value), gather(gap(i)));
         t = min(tmax, t * multiplier);
         if (gap(i) < eps)
             break;
