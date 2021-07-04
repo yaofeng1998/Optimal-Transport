@@ -50,8 +50,6 @@ clear;
 n1 = 80;
 n2 = 80;
 n3 = 80;
-iter = 20000;
-eps = 0;
 seed = 0;
 rng(seed);
 postfix = [num2str(n1) '_' num2str(n2) '_' num2str(n3) '_' num2str(iter) '_' num2str(seed)];
@@ -73,6 +71,8 @@ sum(output1.x .* c, [1, 2, 3])
 b2 = ([reshape(sum(output1.x, [2, 3]), [1, n1]), reshape(sum(output1.x, [1, 3]), [1, n2]), reshape(sum(output1.x, [1, 2]), [1, n3])])';
 norm(b2 - b) / norm(b)
 %%
+iter = 20000;
+eps = 0;
 output2 = admm_gpu_tensor(c, b, zeros(n1, n2, n3), 1e-7, iter, eps, 1e+3, 1.1, 1.2);
 sum(output2.x .* c, [1, 2, 3])
 b3 = ([reshape(sum(output2.x, [2, 3]), [1, n1]), reshape(sum(output2.x, [1, 3]), [1, n2]), reshape(sum(output2.x, [1, 2]), [1, n3])])';

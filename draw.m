@@ -43,7 +43,7 @@ for i = 1:1:output_size(1)
         plots = [plots, h];
         legends = [legends, string(output.alg)];
     end
-    set(gca,'xscale','log');
+    % set(gca,'xscale','log');
     set(gca,'yscale','log');
     set(gca,'FontName', 'Times New Roman', 'FontSize', 38, 'LineWidth', 1.5);
     y_range = get(gca, 'ylim');
