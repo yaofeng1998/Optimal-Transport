@@ -1,4 +1,4 @@
-function [output] = admm_gpu_tensor(c, b, x, t, iter, eps, tmin, decay, gamma)
+function [output] = admm_gpu_tensor(c, b, x, t, iter, eps, tmax, multiplier, gamma)
 problem_size = size(x);
 index_positions = [0, cumsum(problem_size)];
 inverse_prod_problem_size = 1 / prod(problem_size);
@@ -35,7 +35,8 @@ if eps == 0
         dual_value = b' * y;
         output.gap(i) = abs((primal_value - dual_value) / dual_value);
         output.time(i) = toc(init_time);
-        t = max(tmin, t * decay);
+        % fprintf("%d %d\n", gather(primal_value), gather(output.gap(i)));
+        t = min(tmax, t * multiplier);
     end
 else
     gap = gpuArray(zeros(iter, 1));
@@ -61,7 +62,7 @@ else
         dual_value = b' * y;
         gap(i) = abs((primal_value - dual_value) / dual_value);
         time(i) = toc(init_time);
-        t = max(tmin, t * decay);
+        t = min(tmax, t * multiplier);
         if (gap(i) < eps)
             break;
         end

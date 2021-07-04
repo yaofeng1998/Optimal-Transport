@@ -1,9 +1,9 @@
-function [output] = linprog_mosek(c, m, n, A, b, optimizer)
+function [output] = linprog_mosek_tensor(c, size, A, b, optimizer)
 %linear programming method to solve the problem
 % c X_ij
 % m length of X
 % n depth of X
-c = c / max(max(c));
+% c = c / max(max(c));
 prob.c = c;
 prob.a = A;
 % Specify lower bounds of the constraints.
@@ -11,9 +11,9 @@ prob.blc = b;
 % Specify  upper bounds of the constraints.
 prob.buc = b;
 % Specify lower bounds of the variables.
-prob.blx = zeros(m * n, 1);
+prob.blx = zeros(size, 1);
 % Specify upper bounds of the variables.
-prob.bux = inf * ones(m * n, 1);
+prob.bux = inf * ones(size, 1);
 param.MSK_IPAR_LOG = 0;
 if strcmpi(optimizer, 'simplex')
     param.MSK_IPAR_OPTIMIZER = 'MSK_OPTIMIZER_PRIMAL_SIMPLEX';
